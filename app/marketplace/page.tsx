@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { 
   ShoppingBag, 
   Trophy, 
@@ -26,6 +26,18 @@ import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
 
 export default function MarketplacePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <MarketplaceContent />
+    </Suspense>
+  );
+}
+
+function MarketplaceContent() {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get('tab') || 'boosters';
   const [activeTab, setActiveTab] = useState(initialTab);
