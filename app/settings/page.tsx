@@ -76,7 +76,7 @@ export default function SettingsPage() {
               </div>
               <span className="text-[10px] font-bold text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md uppercase">Connected</span>
             </div>
-            <input type="password" underline="none" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-gray-400 font-mono" value="••••••••••••••••••••••••••••••••" readOnly />
+            <input type="password" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-gray-400 font-mono" value="••••••••••••••••••••••••••••••••" readOnly />
           </div>
 
           <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
@@ -87,7 +87,7 @@ export default function SettingsPage() {
               </div>
               <span className="text-[10px] font-bold text-gray-500 bg-white/5 px-2 py-1 rounded-md uppercase">Pending</span>
             </div>
-            <input type="password" underline="none" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-gray-400 font-mono" placeholder="Enter Server Key..." />
+            <input type="password" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-gray-400 font-mono" placeholder="Enter Server Key..." />
           </div>
         </div>
       </section>

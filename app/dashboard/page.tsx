@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import { cn } from '@/lib/utils';
 import { 
   Users, 
   TrendingUp, 
@@ -26,6 +29,12 @@ const data = [
 ];
 
 export default function DashboardPage() {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="space-y-8">
       {/* Stats Grid */}
@@ -47,24 +56,26 @@ export default function DashboardPage() {
             </select>
           </div>
           <div className="h-[350px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
-                <defs>
-                  <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#EAB308" stopOpacity={0.1}/>
-                    <stop offset="95%" stopColor="#EAB308" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#9CA3AF', fontSize: 12}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#9CA3AF', fontSize: 12}} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#0A0D14', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                  itemStyle={{ color: '#EAB308' }}
-                />
-                <Area type="monotone" dataKey="earnings" stroke="#EAB308" fillOpacity={1} fill="url(#colorEarnings)" strokeWidth={3} />
-              </AreaChart>
-            </ResponsiveContainer>
+            {mounted && (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={data}>
+                  <defs>
+                    <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#EAB308" stopOpacity={0.1}/>
+                      <stop offset="95%" stopColor="#EAB308" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#9CA3AF', fontSize: 12}} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#9CA3AF', fontSize: 12}} />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: '#0A0D14', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                    itemStyle={{ color: '#EAB308' }}
+                  />
+                  <Area type="monotone" dataKey="earnings" stroke="#EAB308" fillOpacity={1} fill="url(#colorEarnings)" strokeWidth={3} />
+                </AreaChart>
+              </ResponsiveContainer>
+            )}
           </div>
         </div>
 
@@ -131,4 +142,3 @@ function ActivityItem({ title, time, user, color, amount }: any) {
   );
 }
 
-import { cn } from '@/lib/utils';

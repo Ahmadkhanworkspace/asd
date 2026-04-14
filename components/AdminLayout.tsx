@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <header className="flex justify-between items-center mb-10">
           <div>
             <h2 className="text-3xl font-bold text-white">
-              {pathname === '/dashboard' ? 'Overview' : pathname?.split('/')[1]?.charAt(0).toUpperCase() + pathname?.split('/')[1]?.slice(1)}
+              {pathname === '/dashboard' ? 'Overview' : (pathname?.split('/')[1]?.charAt(0).toUpperCase() || '') + (pathname?.split('/')[1]?.slice(1) || '')}
             </h2>
             <p className="text-gray-400 mt-1">Welcome back, Admin</p>
           </div>
