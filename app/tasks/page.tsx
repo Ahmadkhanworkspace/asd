@@ -22,7 +22,7 @@ export default function TasksPage() {
   return (
     <div className="space-y-10 pb-20">
       {/* Tab Navigation */}
-      <div className="flex gap-4 p-2 bg-white border border-slate-200 rounded-3xl w-fit shadow-sm">
+      <div className="flex gap-4 p-2 bg-white border border-slate-200 rounded-3xl w-fit shadow-[0_15px_30px_rgba(0,0,0,0.04)]">
         <button 
           onClick={() => setActiveTab('manager')}
           className={cn(
@@ -58,7 +58,7 @@ function TaskManager() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.06)] overflow-hidden">
         <div className="p-10 border-b border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
             <h3 className="text-xl font-black tracking-tight text-slate-900">Campaign Manager</h3>
@@ -135,21 +135,21 @@ function ApprovalQueue() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Pending Review</h4>
            <p className="text-4xl font-black text-slate-900">12</p>
         </div>
-        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Approved Today</h4>
            <p className="text-4xl font-black text-emerald-500">245</p>
         </div>
-        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Rejected (24h)</h4>
            <p className="text-4xl font-black text-red-500">14</p>
         </div>
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.08)] overflow-hidden">
         <div className="p-10 border-b border-slate-100">
           <h3 className="text-xl font-black tracking-tight text-slate-900">Verification Terminal</h3>
           <p className="text-slate-500 text-sm font-medium">Approve or reject task proofs</p>

@@ -51,7 +51,7 @@ export default function XtremePage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Matrix Growth Chart */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
+        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-[32px] p-8 shadow-[0_30px_60px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-center mb-8">
             <h3 className="text-xl font-black tracking-tight text-slate-900">EarnX Xtreme Growth</h3>
             <div className="flex gap-2">
@@ -84,7 +84,7 @@ export default function XtremePage() {
         </div>
 
         {/* Matrix Global Config */}
-        <div className="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm space-y-8">
+        <div className="bg-white border border-slate-200 rounded-[32px] p-8 shadow-[0_30px_60px_rgba(0,0,0,0.05)] space-y-8">
            <h3 className="text-xl font-black tracking-tight text-slate-900">Xtreme Settings</h3>
            
            <div className="space-y-6">
@@ -127,7 +127,7 @@ export default function XtremePage() {
       </div>
 
       {/* Global PIF Queue (Pay It Forward) */}
-      <div className="bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.05)]">
          <div className="p-8 border-b border-slate-100 flex justify-between items-center">
             <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">Real-time Matrix Spillover Log</h3>
             <button className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold">
@@ -164,7 +164,7 @@ function XtremeCard({ title, value, subValue, icon: Icon, color }: any) {
   };
 
   return (
-    <div className="bg-white border border-slate-200 p-8 rounded-[32px] shadow-sm group hover:border-orange-500/20 transition-all">
+    <div className="bg-white border border-slate-200 p-8 rounded-[32px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] group hover:border-orange-500/20 transition-all hover:shadow-[0_30px_60px_rgba(249,115,22,0.08)]">
       <div className={cn("p-4 w-fit rounded-2xl mb-6", colorMap[color])}>
         <Icon size={24} />
       </div>

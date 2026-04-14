@@ -26,7 +26,7 @@ export default function PTCPage() {
   return (
     <div className="space-y-10 pb-20">
       {/* Global PTC Settings */}
-      <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-sm">
+      <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)]">
         <div className="flex items-center gap-4 text-orange-500 mb-8">
            <Settings size={28} />
            <h3 className="text-2xl font-black tracking-tight text-slate-900">Global PTC Configuration</h3>
@@ -56,7 +56,7 @@ export default function PTCPage() {
       </div>
 
       {/* Ad Inventory */}
-      <div className="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.08)] overflow-hidden">
         <div className="p-10 border-b border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
             <h3 className="text-xl font-black tracking-tight text-slate-900">Active Ad Inventory</h3>

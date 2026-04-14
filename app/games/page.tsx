@@ -30,7 +30,7 @@ export default function GamesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Spin Wheel Configuration */}
-        <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-sm space-y-8">
+        <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60_rgba(0,0,0,0.06)] space-y-8">
           <div className="flex items-center justify-between">
              <div className="flex items-center gap-4">
                 <div className="p-4 bg-orange-500 rounded-2xl text-white shadow-lg shadow-orange-500/20">
@@ -76,7 +76,7 @@ export default function GamesPage() {
 
         {/* Game Global Settings */}
         <div className="space-y-8">
-           <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-sm space-y-8">
+           <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)] space-y-8">
               <div className="flex items-center gap-4 text-orange-500">
                  <Zap size={28} />
                  <h3 className="text-2xl font-black tracking-tight text-slate-900">Global Game Logic</h3>
@@ -114,7 +114,7 @@ export default function GamesPage() {
               </div>
            </div>
 
-           <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-sm flex items-center justify-between group cursor-pointer hover:border-orange-500/20 transition-all">
+           <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)] flex items-center justify-between group cursor-pointer hover:border-orange-500/20 transition-all">
               <div className="flex items-center gap-6">
                  <div className="w-16 h-16 rounded-3xl bg-slate-50 flex items-center justify-center text-slate-300 group-hover:text-orange-500 transition-colors">
                     <Trophy size={32} />

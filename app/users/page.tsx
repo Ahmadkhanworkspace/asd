@@ -49,7 +49,7 @@ export default function UsersPage() {
 
       {/* Stats Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm flex items-center gap-6">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] flex items-center gap-6">
            <div className="w-16 h-16 rounded-3xl bg-orange-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/20">
               <Users size={32} />
            </div>
@@ -58,7 +58,7 @@ export default function UsersPage() {
               <p className="text-3xl font-black text-slate-900 tracking-tighter">24,562</p>
            </div>
         </div>
-        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm flex items-center gap-6">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] flex items-center gap-6">
            <div className="w-16 h-16 rounded-3xl bg-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
               <TrendingUp size={32} />
            </div>
@@ -67,7 +67,7 @@ export default function UsersPage() {
               <p className="text-3xl font-black text-slate-900 tracking-tighter">1,890</p>
            </div>
         </div>
-        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm flex items-center gap-6">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] flex items-center gap-6">
            <div className="w-16 h-16 rounded-3xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20">
               <CheckCircle2 size={32} />
            </div>
@@ -79,7 +79,7 @@ export default function UsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.08)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>

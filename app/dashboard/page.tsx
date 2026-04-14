@@ -63,7 +63,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Revenue Chart */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-[40px] p-10 shadow-sm">
+        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)]">
           <div className="flex justify-between items-center mb-10">
             <div>
               <h3 className="text-2xl font-black tracking-tight text-slate-900">Revenue Breakdown</h3>
@@ -160,7 +160,7 @@ function StatCard({ title, value, icon: Icon, color, trend, isPositive }: any) {
   };
 
   return (
-    <div className="bg-white border border-slate-200 p-8 rounded-[40px] group transition-all duration-300 hover:border-orange-500/20 shadow-sm">
+    <div className="bg-white border border-slate-200 p-8 rounded-[40px] group transition-all duration-300 hover:border-orange-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(249,115,22,0.1)] hover:-translate-y-1">
       <div className="flex justify-between items-start mb-6">
         <div className={cn("p-4 rounded-2xl", colorMap[color])}>
           <Icon size={24} />
@@ -189,7 +189,7 @@ function MiniDataCard({ title, value, icon: Icon, color }: any) {
    };
    
    return (
-      <div className="bg-white border border-slate-200 p-6 rounded-[32px] flex items-center justify-between shadow-sm group hover:border-slate-300 transition-all">
+      <div className="bg-white border border-slate-200 p-6 rounded-[32px] flex items-center justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] group hover:border-slate-300 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
          <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-slate-900 transition-colors">
                <Icon size={20} />
