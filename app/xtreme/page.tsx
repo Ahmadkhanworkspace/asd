@@ -85,7 +85,10 @@ export default function XtremePage() {
 
         {/* Matrix Global Config */}
         <div className="bg-white border border-slate-200 rounded-[32px] p-8 shadow-[0_30px_60px_rgba(0,0,0,0.05)] space-y-8">
-           <h3 className="text-xl font-black tracking-tight text-slate-900">Xtreme Settings</h3>
+           <div className="flex items-center justify-between">
+              <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">/ global_config</h3>
+              <div className="p-2 bg-orange-50 text-orange-500 rounded-lg"><Settings size={20} /></div>
+           </div>
            
            <div className="space-y-6">
               <div className="space-y-2">
@@ -96,17 +99,15 @@ export default function XtremePage() {
                  </select>
               </div>
 
-              <div className="space-y-2">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Position Entry Price</label>
-                 <div className="relative">
+              <div className="grid grid-cols-2 gap-4">
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Entry Price (Min)</label>
                     <input type="number" defaultValue="25" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-orange-500/30" />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">USD</span>
                  </div>
-              </div>
-
-              <div className="space-y-2">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Matching Bonus (%)</label>
-                 <input type="number" defaultValue="10" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-orange-500/30" />
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Matching Bonus (%)</label>
+                    <input type="number" defaultValue="10" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-orange-500/30" />
+                 </div>
               </div>
 
               <div className="flex items-center justify-between p-4 bg-orange-50 border border-orange-100 rounded-2xl">
@@ -118,38 +119,65 @@ export default function XtremePage() {
                     <div className="w-4 h-4 bg-white rounded-full absolute right-1"></div>
                  </div>
               </div>
+
+              <div className="space-y-2">
+                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Official Payplan PDF/Link</label>
+                 <div className="flex gap-2">
+                    <input type="text" placeholder="https://earnx.com/payplan.pdf" className="flex-1 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm font-medium outline-none focus:border-orange-500/30" />
+                    <button className="px-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-200 transition-all font-bold text-xs uppercase">Browse</button>
+                 </div>
+              </div>
            </div>
 
-           <button className="w-full py-4 bg-orange-500 text-white font-black rounded-2xl shadow-lg shadow-orange-500/30 text-sm hover:scale-[1.02] transition-transform">
+           <button className="w-full py-4 bg-orange-500 text-white font-black rounded-2xl shadow-lg shadow-orange-500/30 text-sm hover:scale-[1.02] transition-all">
               Update Matrix Config
            </button>
         </div>
       </div>
 
-      {/* Global PIF Queue (Pay It Forward) */}
-      <div className="bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.05)]">
-         <div className="p-8 border-b border-slate-100 flex justify-between items-center">
-            <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">Real-time Matrix Spillover Log</h3>
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold">
-               <Plus size={16} /> Purchase Position for User (PIF)
-            </button>
-         </div>
-         <table className="w-full text-left">
-            <thead>
-               <tr className="bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest">
-                  <th className="px-8 py-4">User</th>
-                  <th className="px-8 py-4">Position ID</th>
-                  <th className="px-8 py-4">Status</th>
-                  <th className="px-8 py-4">Progress</th>
-                  <th className="px-8 py-4 text-right">Time</th>
-               </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-               <XtremeLogRow user="crypto_king" id="#XT-921" status="Cycling" progress={85} time="2m ago" />
-               <XtremeLogRow user="ahmad_ws" id="#XT-918" status="Active" progress={42} time="14m ago" />
-               <XtremeLogRow user="sarah_pro" id="#XT-882" status="Completed" progress={100} time="1h ago" />
-            </tbody>
-         </table>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Xtreme Payplans (Packages) */}
+        <div className="lg:col-span-1 bg-white border border-slate-200 rounded-[32px] p-8 shadow-[0_30px_60px_rgba(0,0,0,0.05)] space-y-8">
+           <div className="flex items-center justify-between">
+              <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">/ active_payplans</h3>
+              <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-colors">
+                 <Plus size={14} /> New Plan
+              </button>
+           </div>
+
+           <div className="space-y-4 max-h-[450px] overflow-y-auto pr-2 scrollbar-hide">
+              <PackageItem name="Starter" price="25" cycleReward="100" />
+              <PackageItem name="Advanced" price="100" cycleReward="450" />
+              <PackageItem name="Elite" price="500" cycleReward="2,250" />
+              <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" />
+           </div>
+        </div>
+
+        {/* Global PIF Queue (Pay It Forward) */}
+        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.05)]">
+           <div className="p-8 border-b border-slate-100 flex justify-between items-center">
+              <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">Real-time Matrix Spillover Log</h3>
+              <button className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold">
+                 <Plus size={16} /> Purchase Position for User (PIF)
+              </button>
+           </div>
+           <table className="w-full text-left">
+              <thead>
+                 <tr className="bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                    <th className="px-8 py-4">User</th>
+                    <th className="px-8 py-4">Position ID</th>
+                    <th className="px-8 py-4">Status</th>
+                    <th className="px-8 py-4">Progress</th>
+                    <th className="px-8 py-4 text-right">Time</th>
+                 </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                 <XtremeLogRow user="crypto_king" id="#XT-921" status="Cycling" progress={85} time="2m ago" />
+                 <XtremeLogRow user="ahmad_ws" id="#XT-918" status="Active" progress={42} time="14m ago" />
+                 <XtremeLogRow user="sarah_pro" id="#XT-882" status="Completed" progress={100} time="1h ago" />
+              </tbody>
+           </table>
+        </div>
       </div>
     </div>
   );
@@ -205,5 +233,30 @@ function XtremeLogRow({ user, id, status, progress, time }: any) {
             <p className="text-xs text-slate-400 font-medium">{time}</p>
          </td>
       </tr>
+   )
+}
+
+function PackageItem({ name, price, cycleReward }: any) {
+   return (
+      <div className="flex items-center justify-between p-6 bg-slate-50 border border-slate-100 rounded-3xl group hover:bg-white hover:border-orange-500/20 transition-all shadow-[0_10px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_30px_rgba(249,115,22,0.05)]">
+         <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-orange-500 transition-colors">
+               <Zap size={20} />
+            </div>
+            <div>
+               <p className="font-black text-slate-900">{name} Pack</p>
+               <div className="flex items-center gap-2 mt-0.5">
+                  <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest">$ {price} Entry</span>
+               </div>
+            </div>
+         </div>
+         <div className="text-right">
+            <p className="text-sm font-black text-slate-900">{cycleReward} Coins</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Cycle Reward</p>
+         </div>
+         <button className="ml-4 p-2 text-slate-300 hover:text-slate-900 transition-colors">
+            <ArrowRightCircle size={20} />
+         </button>
+      </div>
    )
 }
