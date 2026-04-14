@@ -4,8 +4,8 @@
   --background: #f1f5f9;
   --foreground: #0f172a;
   --primary: #f97316;
-  --card-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.08);
-  --card-shadow-hover: 0 30px 60px -12px rgba(249, 115, 22, 0.15);
+  --card-shadow: 0 40px 60px -15px rgba(15, 23, 42, 0.1), 0 20px 30px -10px rgba(15, 23, 42, 0.05);
+  --card-shadow-hover: 0 50px 80px -20px rgba(249, 115, 22, 0.2);
 }
 
 body {
@@ -17,20 +17,20 @@ body {
 
 .premium-card {
   background: white;
-  border: 1px solid #e2e8f0;
+  border: 2px solid #e2e8f0;
   border-radius: 40px;
   box-shadow: var(--card-shadow);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .premium-card:hover {
   box-shadow: var(--card-shadow-hover);
-  transform: translateY(-4px);
-  border-color: rgba(249, 115, 22, 0.3);
+  transform: translateY(-8px);
+  border-color: #f97316;
 }
 
 .glass-accent {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }

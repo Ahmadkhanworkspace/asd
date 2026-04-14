@@ -27,20 +27,20 @@ export default function PTCPage() {
   return (
     <div className="space-y-10 pb-20">
       {/* PTC Membership Tiers */}
-      <div className="bg-white border-2 border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50/50 rounded-bl-full translate-x-12 -translate-y-12"></div>
+      <div className="bg-white border-2 border-slate-200 rounded-[52px] p-12 shadow-[0_60px_120px_-30px_rgba(15,23,42,0.15)] relative overflow-hidden border-t-8 border-t-emerald-500">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50/30 rounded-bl-full translate-x-12 -translate-y-12"></div>
         
-        <div className="flex justify-between items-center mb-10 relative z-10">
-           <div className="flex items-center gap-4 text-emerald-500">
-              <CheckCircle2 size={28} />
-              <h3 className="text-2xl font-black tracking-tight text-slate-900">Membership Tiers</h3>
+        <div className="flex justify-between items-center mb-12 relative z-10">
+           <div className="flex items-center gap-5 text-emerald-500">
+              <div className="p-4 bg-emerald-50 rounded-2xl border-2 border-emerald-100 shadow-lg shadow-emerald-500/5"><CheckCircle2 size={32} /></div>
+              <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-widest">Membership Tiers</h3>
            </div>
-           <button className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-colors">
-              <Plus size={14} /> Add Tier
+           <button className="flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:bg-emerald-600 transition-all">
+              <Plus size={18} /> New Tier
            </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
            <TierCard name="Free" price="0" multiplier="1.0x" color="slate" />
            <TierCard name="Silver" price="25" multiplier="2.5x" color="orange" />
            <TierCard name="Gold" price="100" multiplier="5.0x" color="blue" />
@@ -49,49 +49,49 @@ export default function PTCPage() {
       </div>
 
       {/* Global PTC Settings */}
-      <div className="bg-white border-2 border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.08)]">
-        <div className="flex items-center gap-4 text-orange-500 mb-8">
-           <Settings size={28} />
-           <h3 className="text-2xl font-black tracking-tight text-slate-900">Global PTC Configuration</h3>
+      <div className="bg-white border-2 border-slate-200 rounded-[48px] p-12 shadow-[0_50px_100px_-20px_rgba(15,23,42,0.12)]">
+        <div className="flex items-center gap-5 text-orange-500 mb-12">
+           <div className="p-4 bg-orange-50 rounded-2xl border-2 border-orange-100 shadow-lg shadow-orange-500/5"><Settings size={32} /></div>
+           <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-widest">Engine Config</h3>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-           <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Default Ad Timer</label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+           <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-2">Default Countdown</label>
               <div className="relative">
-                 <input type="number" defaultValue="20" className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:border-orange-500/20" />
-                 <span className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">Seconds</span>
+                 <input type="number" defaultValue="20" className="w-full bg-slate-50 border-2 border-slate-100 rounded-[28px] px-8 py-5 text-sm font-black outline-none focus:border-orange-500 transition-all" />
+                 <span className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 font-black text-[10px] uppercase tracking-widest">Seconds</span>
               </div>
            </div>
-           <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Standard Reward</label>
+           <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-2">Standard Payout</label>
               <div className="relative">
-                 <input type="number" defaultValue="50" className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:border-orange-500/20" />
-                 <span className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs uppercase">Coins</span>
+                 <input type="number" defaultValue="50" className="w-full bg-slate-50 border-2 border-slate-100 rounded-[28px] px-8 py-5 text-sm font-black outline-none focus:border-orange-500 transition-all" />
+                 <span className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 font-black text-[10px] uppercase tracking-widest">Coins</span>
               </div>
            </div>
            <div className="flex items-end">
-              <button className="w-full py-4 bg-slate-900 text-white font-black rounded-2xl text-xs uppercase tracking-widest hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/10">
-                 Save Global Settings
+              <button className="w-full py-5 bg-orange-500 text-white font-black rounded-[28px] text-[10px] uppercase tracking-[0.2em] hover:bg-slate-900 transition-all shadow-2xl shadow-orange-500/30">
+                 Sync Global Params
               </button>
            </div>
         </div>
       </div>
 
       {/* Ad Inventory */}
-      <div className="bg-white border-2 border-slate-200 rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.08)] overflow-hidden">
-        <div className="p-10 border-b-2 border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="bg-white border-2 border-slate-200 rounded-[52px] shadow-[0_60px_120px_-30px_rgba(15,23,42,0.15)] overflow-hidden">
+        <div className="p-12 border-b-2 border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-slate-50/50">
           <div>
-            <h3 className="text-xl font-black tracking-tight text-slate-900">Active Ad Inventory</h3>
-            <p className="text-slate-500 text-sm font-medium">Manage and monitor Pay-To-Click campaigns</p>
+            <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase tracking-widest text-orange-500">Inventory Management</h3>
+            <p className="text-slate-400 text-xs font-bold mt-1 uppercase tracking-widest opacity-80">Pay-To-Click live campaign tracking</p>
           </div>
-          <div className="flex gap-4 w-full md:w-auto">
-            <div className="relative flex-1 md:w-64">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input type="text" placeholder="Search ads..." className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-medium outline-none focus:border-orange-500/20" />
+          <div className="flex gap-6 w-full md:w-auto">
+            <div className="relative flex-1 md:w-80">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+              <input type="text" placeholder="Search live inventory..." className="w-full pl-16 pr-6 py-5 bg-white border-2 border-slate-100 rounded-[28px] text-sm font-bold outline-none focus:border-orange-500 shadow-inner" />
             </div>
-            <button className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg shadow-orange-500/20">
-              <Plus size={18} /> Create Ad
+            <button className="flex items-center gap-3 px-10 py-5 bg-orange-500 text-white rounded-[28px] text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-orange-500/30 hover:scale-105 active:scale-95 transition-all">
+              <Plus size={20} /> Create Ad
             </button>
           </div>
         </div>
@@ -99,57 +99,57 @@ export default function PTCPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest">
-                <th className="px-10 py-5">Campaign Name</th>
-                <th className="px-10 py-5">Earnings / Duration</th>
-                <th className="px-10 py-5">Total Views</th>
-                <th className="px-10 py-5">Status</th>
-                <th className="px-10 py-5 text-right">Actions</th>
+              <tr className="bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] border-b-2 border-slate-100">
+                <th className="px-12 py-6">Campaign Info</th>
+                <th className="px-12 py-6">Payout Params</th>
+                <th className="px-12 py-6">Engagement</th>
+                <th className="px-12 py-6">Lifecycle</th>
+                <th className="px-12 py-6 text-right">Terminal</th>
               </tr>
             </thead>
             <tbody className="divide-y-2 divide-slate-100">
               {ads.map((ad) => (
-                <tr key={ad.id} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-10 py-6">
-                    <div className="flex items-center gap-4">
-                       <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500">
-                          <Globe size={20} />
+                <tr key={ad.id} className="hover:bg-slate-50 transition-colors group">
+                  <td className="px-12 py-8">
+                    <div className="flex items-center gap-6">
+                       <div className="w-14 h-14 rounded-[22px] bg-white border-2 border-slate-100 flex items-center justify-center text-orange-500 shadow-sm transition-transform group-hover:rotate-6">
+                          <Globe size={24} />
                        </div>
                        <div>
-                          <p className="font-bold text-slate-900">{ad.title}</p>
-                          <a href={ad.url} target="_blank" className="text-xs text-orange-500 font-bold hover:underline flex items-center gap-1 mt-0.5">
-                             {ad.url} <ExternalLink size={10} />
+                          <p className="font-black text-slate-900 text-lg leading-none">{ad.title}</p>
+                          <a href={ad.url} target="_blank" className="text-[10px] text-orange-500 font-black uppercase tracking-widest hover:underline flex items-center gap-1.5 mt-2">
+                             {ad.url} <ExternalLink size={12} />
                           </a>
                        </div>
                     </div>
                   </td>
-                  <td className="px-10 py-6">
-                    <div className="flex flex-col gap-1">
-                       <div className="flex items-center gap-1.5 text-xs font-black text-slate-900">
-                          <Coins size={14} className="text-orange-500" /> {ad.reward} Coins
+                  <td className="px-12 py-8">
+                    <div className="flex flex-col gap-2">
+                       <div className="flex items-center gap-2 text-sm font-black text-slate-900">
+                          <Coins size={16} className="text-orange-500" /> {ad.reward} Coins
                        </div>
-                       <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                          <Clock size={12} /> {ad.duration} Seconds
+                       <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                          <Clock size={14} /> {ad.duration} Seconds
                        </div>
                     </div>
                   </td>
-                  <td className="px-10 py-6">
-                    <p className="font-bold text-slate-900">{ad.views.toLocaleString()}</p>
-                    <p className="text-[10px] text-slate-400 font-black uppercase mt-0.5">Impressions</p>
+                  <td className="px-12 py-8">
+                    <p className="font-black text-slate-900 text-xl tracking-tighter">{ad.views.toLocaleString()}</p>
+                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">Unique Imps</p>
                   </td>
-                  <td className="px-10 py-6">
+                  <td className="px-12 py-8">
                     <span className={cn(
-                      "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
-                      ad.status === 'active' ? "bg-emerald-50 text-emerald-600" : "bg-orange-50 text-orange-600"
+                      "px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border-2 shadow-sm",
+                      ad.status === 'active' ? "bg-emerald-50 text-emerald-600 border-emerald-100" : "bg-orange-50 text-orange-600 border-orange-100"
                     )}>{ad.status}</span>
                   </td>
-                  <td className="px-10 py-6 text-right">
-                    <div className="flex justify-end gap-2">
-                       <button className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all">
-                          <Edit2 size={16} />
+                  <td className="px-12 py-8 text-right">
+                    <div className="flex justify-end gap-3 transition-all">
+                       <button className="p-4 bg-white border-2 border-slate-100 text-slate-400 hover:text-slate-900 hover:border-slate-300 rounded-2xl transition-all shadow-sm">
+                          <Edit2 size={20} />
                        </button>
-                       <button className="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all">
-                          <Trash2 size={16} />
+                       <button className="p-4 bg-red-50 border-2 border-red-100 text-red-500 hover:bg-red-600 hover:text-white hover:border-red-600 rounded-2xl transition-all shadow-xl shadow-red-500/10">
+                          <Trash2 size={20} />
                        </button>
                     </div>
                   </td>
@@ -172,22 +172,22 @@ function TierCard({ name, price, multiplier, color }: any) {
    };
 
    return (
-      <div className="bg-white border-2 border-slate-200 p-8 rounded-[32px] group transition-all duration-500 hover:border-orange-500 shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_30px_60px_rgba(249,115,22,0.15)] hover:-translate-y-2 relative overflow-hidden">
-         <div className="absolute top-0 right-0 w-20 h-20 bg-slate-50/50 rounded-bl-full translate-x-8 -translate-y-8 group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700"></div>
+      <div className="bg-white border-2 border-slate-200 p-10 rounded-[44px] group transition-all duration-700 hover:border-orange-500 shadow-[0_40px_80px_-15px_rgba(15,23,42,0.1)] hover:shadow-[0_50px_90px_-15px_rgba(249,115,22,0.2)] hover:-translate-y-3 relative overflow-hidden">
+         <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50/50 rounded-bl-full translate-x-12 -translate-y-12 transition-transform duration-1000 group-hover:translate-x-8 group-hover:-translate-y-8"></div>
          
          <div className="relative z-10">
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{name} Tier</p>
-            <div className="flex items-baseline gap-1 mb-6">
-               <span className="text-3xl font-black text-slate-900 tracking-tighter">${price}</span>
-               <span className="text-[10px] font-bold text-slate-400 lowercase">/lifetime</span>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-hover:text-slate-900 transition-colors uppercase">{name} Membership</p>
+            <div className="flex items-baseline gap-1 mb-8">
+               <span className="text-4xl font-black text-slate-900 tracking-tighter leading-none">${price}</span>
+               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">/LIFETIME</span>
             </div>
             
-            <div className={cn("inline-flex items-center gap-2 px-4 py-2 rounded-xl font-black text-xs uppercase tracking-widest mb-6 transition-all", colorMap[color])}>
-               <TrendingUp size={14} /> {multiplier} Earn
+            <div className={cn("inline-flex items-center gap-3 px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] mb-10 transition-all border-2", colorMap[color])}>
+               <TrendingUp size={16} /> {multiplier} Dynamic Multi
             </div>
 
-            <button className="w-full py-3 bg-slate-50 border-2 border-slate-100 text-slate-900 font-bold rounded-xl text-[10px] uppercase tracking-widest group-hover:bg-slate-900 group-hover:text-white transition-all">
-               Edit Tier
+            <button className="w-full py-4.5 bg-slate-50 border-2 border-slate-100 text-slate-900 font-black rounded-2xl text-[10px] uppercase tracking-[0.2em] group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900 transition-all shadow-inner">
+               Update Level
             </button>
          </div>
       </div>
