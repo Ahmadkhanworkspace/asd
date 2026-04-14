@@ -160,8 +160,10 @@ function StatCard({ title, value, icon: Icon, color, trend, isPositive }: any) {
   };
 
   return (
-    <div className="bg-white border border-slate-200 p-8 rounded-[40px] group transition-all duration-300 hover:border-orange-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(249,115,22,0.1)] hover:-translate-y-1">
-      <div className="flex justify-between items-start mb-6">
+    <div className="bg-white border-2 border-slate-200 p-8 rounded-[40px] group transition-all duration-500 hover:border-orange-500 shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:shadow-[0_40px_80px_rgba(249,115,22,0.15)] hover:-translate-y-2 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50/50 rounded-bl-full translate-x-8 -translate-y-8 group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-700"></div>
+      
+      <div className="flex justify-between items-start mb-6 relative z-10">
         <div className={cn("p-4 rounded-2xl", colorMap[color])}>
           <Icon size={24} />
         </div>
