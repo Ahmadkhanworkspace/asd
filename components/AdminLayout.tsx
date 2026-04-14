@@ -12,7 +12,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (isLoginPage) return <>{children}</>;
 
   return (
-    <div className="flex min-h-screen bg-slate-100 text-slate-900 font-sans">
+    <div className="flex min-h-screen bg-slate-200 text-slate-900 font-sans">
       <Sidebar />
       <main className="flex-1 overflow-y-auto px-6 py-10 lg:px-12">
         <header className="flex justify-between items-center mb-12">
