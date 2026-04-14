@@ -14,7 +14,9 @@ import {
   Clock,
   ShieldCheck,
   ArrowUpRight,
-  X
+  X,
+  Network,
+  Share2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { 
@@ -93,33 +95,30 @@ export default function XtremePage() {
 
         <div className="bg-white border-2 border-slate-300 rounded-[56px] p-12 shadow-[0_60px_120px_-30px_rgba(15,23,42,0.2)] space-y-10 border-t-[8px] border-t-slate-900">
            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-[0.2em]">/ config</h3>
+              <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-[0.2em]">/ global_ops</h3>
               <div className="p-5 bg-slate-900 text-white rounded-[24px] shadow-2xl shadow-slate-900/20 rotate-3"><Settings size={28} /></div>
            </div>
            
            <div className="space-y-8">
               <div className="space-y-3 px-2">
-                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Spillover Logic</label>
-                 <select className="w-full bg-slate-100 border-2 border-slate-200 rounded-[28px] px-8 py-5 text-sm font-black appearance-none outline-none focus:border-orange-500 shadow-inner">
-                    <option>Global Company Spillover (L/R)</option>
-                    <option>Personal Frontline Priority</option>
-                 </select>
-              </div>
-              <div className="grid grid-cols-2 gap-6 px-2">
-                 <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Min Entry</label>
-                    <input type="number" defaultValue="25" className="w-full bg-slate-100 border-2 border-slate-200 rounded-[28px] px-8 py-5 text-sm font-black outline-none focus:border-orange-500 shadow-inner" />
+                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Global Matching Override</label>
+                 <div className="relative">
+                    <input type="number" defaultValue="15" className="w-full bg-slate-100 border-2 border-slate-200 rounded-[28px] px-8 py-5 text-sm font-black outline-none focus:border-orange-500 shadow-inner" />
+                    <span className="absolute right-8 top-1/2 -translate-y-1/2 font-black text-slate-400">%</span>
                  </div>
-                 <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Matching (%)</label>
-                    <input type="number" defaultValue="10" className="w-full bg-slate-100 border-2 border-slate-200 rounded-[28px] px-8 py-5 text-sm font-black outline-none focus:border-orange-500 shadow-inner" />
+              </div>
+              <div className="space-y-3 px-2">
+                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Ref Commission Level 1</label>
+                 <div className="relative">
+                    <input type="number" defaultValue="20" className="w-full bg-slate-100 border-2 border-slate-200 rounded-[28px] px-8 py-5 text-sm font-black outline-none focus:border-orange-500 shadow-inner" />
+                    <span className="absolute right-8 top-1/2 -translate-y-1/2 font-black text-slate-400">%</span>
                  </div>
               </div>
 
               <div className="flex items-center justify-between p-8 bg-orange-50 border-2 border-orange-200 rounded-[44px] shadow-sm">
                  <div>
-                    <p className="text-lg font-black text-orange-950 tracking-tight">Auto-Reentry</p>
-                    <p className="text-[10px] text-orange-600 font-black uppercase tracking-[0.2em] mt-1 opacity-80">PRO-ACTIVE SYSTEM</p>
+                    <p className="text-lg font-black text-orange-950 tracking-tight">Global Spillover</p>
+                    <p className="text-[10px] text-orange-600 font-black uppercase tracking-[0.2em] mt-1 opacity-80">COMPANY-FORCED</p>
                  </div>
                  <div className="w-16 h-8 bg-orange-500 rounded-full relative p-1 cursor-pointer shadow-inner">
                     <div className="w-6 h-6 bg-white rounded-full absolute right-1 shadow-2xl"></div>
@@ -127,7 +126,7 @@ export default function XtremePage() {
               </div>
            </div>
            <button onClick={() => setIsModalOpen(true)} className="w-full py-6 bg-orange-500 text-white font-black rounded-[32px] shadow-[0_30px_60px_rgba(249,115,22,0.4)] text-[11px] uppercase tracking-[0.3em] hover:scale-[1.05] active:scale-95 transition-all">
-              Update Matrix Core
+              Update Logic Core
            </button>
         </div>
       </div>
@@ -149,10 +148,10 @@ export default function XtremePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
-           <PackageItem name="Starter" price="25" cycleReward="100" onConfigure={() => openConfig({name: 'Starter', price: 25, reward: 100})} />
-           <PackageItem name="Advanced" price="100" cycleReward="450" onConfigure={() => openConfig({name: 'Advanced', price: 100, reward: 450})} />
-           <PackageItem name="Elite" price="500" cycleReward="2,250" onConfigure={() => openConfig({name: 'Elite', price: 500, reward: 2250})} />
-           <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" onConfigure={() => openConfig({name: 'Xtreme', price: 2500, reward: 12000})} />
+           <PackageItem name="Starter" price="25" cycleReward="100" onConfigure={() => openConfig({name: 'Starter', price: 25, reward: 100, matching: 10, ref: 15, rentry: 'Advanced'})} />
+           <PackageItem name="Advanced" price="100" cycleReward="450" onConfigure={() => openConfig({name: 'Advanced', price: 100, reward: 450, matching: 15, ref: 20, rentry: 'Elite'})} />
+           <PackageItem name="Elite" price="500" cycleReward="2,250" onConfigure={() => openConfig({name: 'Elite', price: 500, reward: 2,250, matching: 20, ref: 25, rentry: 'Xtreme'})} />
+           <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" onConfigure={() => openConfig({name: 'Xtreme', price: 2,500, reward: 12,000, matching: 30, ref: 50, rentry: 'Xtreme x2'})} />
         </div>
       </div>
 
@@ -218,27 +217,61 @@ function ConfigModal({ isOpen, onClose, data }: any) {
    return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-12 animate-in fade-in duration-300">
          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-xl" onClick={onClose}></div>
-         <div className="bg-white w-full max-w-4xl border-2 border-slate-300 rounded-[64px] shadow-[0_100px_200px_-50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden border-t-[20px] border-t-orange-500 p-16">
+         <div className="bg-white w-full max-w-5xl border-2 border-slate-300 rounded-[64px] shadow-[0_100px_200px_-50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden border-t-[20px] border-t-orange-500 p-16">
             <button onClick={onClose} className="absolute top-12 right-12 w-16 h-16 bg-slate-100 rounded-3xl flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white transition-all">
                <X size={32} />
             </button>
-            <div className="mb-16">
+            <div className="mb-14">
                <h3 className="text-4xl font-black tracking-tighter text-slate-900 uppercase">Tier Configuration</h3>
                <p className="text-slate-500 font-bold uppercase tracking-[0.4em] text-xs mt-4">Adjusting: {data?.name || 'Matrix Cluster'}</p>
             </div>
-            <div className="space-y-12 mb-16">
-               <div className="grid grid-cols-2 gap-10">
-                  <div className="space-y-4">
-                     <label className="text-[11px] font-black tracking-[0.4em] text-slate-400 uppercase ml-4">Entry Price ($)</label>
-                     <input type="number" defaultValue={data?.price} className="w-full bg-slate-100 border-2 border-slate-200 rounded-[32px] px-10 py-6 text-lg font-black outline-none focus:border-orange-500 shadow-inner" />
+            
+            <div className="grid grid-cols-2 gap-12 mb-16 overflow-y-auto max-h-[60vh] pr-4 scrollbar-hide">
+               {/* Primary Reward Logic */}
+               <div className="space-y-8">
+                  <div className="p-10 bg-slate-50 border-2 border-slate-100 rounded-[44px] space-y-8">
+                     <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400 flex items-center gap-3"><Coins size={16} /> Yield Protocol</h4>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Entry Price ($)</label>
+                        <input type="number" defaultValue={data?.price} className="w-full bg-white border-2 border-slate-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-orange-500 shadow-sm" />
+                     </div>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Cycle Reward (Coins)</label>
+                        <input type="number" defaultValue={data?.reward} className="w-full bg-white border-2 border-slate-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-orange-500 shadow-sm" />
+                     </div>
                   </div>
-                  <div className="space-y-4">
-                     <label className="text-[11px] font-black tracking-[0.4em] text-slate-400 uppercase ml-4">Cycle Reward (Coins)</label>
-                     <input type="number" defaultValue={data?.reward} className="w-full bg-slate-100 border-2 border-slate-200 rounded-[32px] px-10 py-6 text-lg font-black outline-none focus:border-orange-500 shadow-inner" />
+               </div>
+
+               {/* Bonus & MLM Logic */}
+               <div className="space-y-8">
+                  <div className="p-10 bg-orange-50 border-2 border-orange-100 rounded-[44px] space-y-8">
+                     <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-orange-400 flex items-center gap-3"><TrendingUp size={16} /> Affiliate Logic</h4>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-orange-900 ml-4">Matching Bonus (%)</label>
+                        <input type="number" defaultValue={data?.matching || 10} className="w-full bg-white border-2 border-orange-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-orange-500 shadow-sm" />
+                     </div>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-orange-900 ml-4">Referral Commission (%)</label>
+                        <input type="number" defaultValue={data?.ref || 15} className="w-full bg-white border-2 border-orange-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-orange-500 shadow-sm" />
+                     </div>
+                  </div>
+
+                  <div className="p-10 bg-slate-900 border-2 border-slate-800 rounded-[44px] space-y-6">
+                     <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-500 flex items-center gap-3"><RefreshCcw size={16} /> Re-entry Protocol</h4>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Target Re-entry Level</label>
+                        <select className="w-full bg-slate-800 border-2 border-slate-700 rounded-[28px] px-8 py-5 text-sm font-black text-white outline-none focus:border-orange-500 appearance-none">
+                           <option selected={data?.name === 'Starter'}>Starter (Same Level)</option>
+                           <option selected={data?.rentry === 'Advanced'}>Advanced (Next Tier)</option>
+                           <option selected={data?.rentry === 'Elite'}>Elite (Next Tier)</option>
+                           <option selected={data?.rentry === 'Xtreme'}>Xtreme (Ultimate)</option>
+                           <option>Xtreme Multiplier (x2)</option>
+                        </select>
+                     </div>
                   </div>
                </div>
             </div>
-            <button onClick={onClose} className="w-full py-8 bg-slate-900 text-white rounded-[32px] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl hover:bg-orange-600 transition-all">Synchronize Parameters</button>
+            <button onClick={onClose} className="w-full py-8 bg-slate-900 text-white rounded-[32px] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl hover:bg-orange-600 transition-all">Synchronize compensation logic</button>
          </div>
       </div>
    )

@@ -14,7 +14,9 @@ import {
   CheckCircle2,
   Globe,
   TrendingUp,
-  X
+  X,
+  Share2,
+  Zap
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -51,10 +53,10 @@ export default function PTCPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
-           <TierCard name="Free" price="0" multiplier="1.0x" color="slate" onConfigure={() => openConfig({name: 'Free', price: 0, mult: '1.0x'})} />
-           <TierCard name="Silver" price="25" multiplier="2.5x" color="orange" onConfigure={() => openConfig({name: 'Silver', price: 25, mult: '2.5x'})} />
-           <TierCard name="Gold" price="100" multiplier="5.0x" color="blue" onConfigure={() => openConfig({name: 'Gold', price: 100, mult: '5.0x'})} />
-           <TierCard name="Diamond" price="500" multiplier="12.0x" color="purple" onConfigure={() => openConfig({name: 'Diamond', price: 500, mult: '12.0x'})} />
+           <TierCard name="Free" price="0" multiplier="1.0x" color="slate" onConfigure={() => openConfig({name: 'Free', price: 0, mult: '1.0x', ref: 5, matching: 0})} />
+           <TierCard name="Silver" price="25" multiplier="2.5x" color="orange" onConfigure={() => openConfig({name: 'Silver', price: 25, mult: '2.5x', ref: 10, matching: 5})} />
+           <TierCard name="Gold" price="100" multiplier="5.0x" color="blue" onConfigure={() => openConfig({name: 'Gold', price: 100, mult: '5.0x', ref: 15, matching: 10})} />
+           <TierCard name="Diamond" price="500" multiplier="12.0x" color="purple" onConfigure={() => openConfig({name: 'Diamond', price: 500, mult: '12.0x', ref: 25, matching: 20})} />
         </div>
       </div>
 
@@ -138,30 +140,50 @@ function TierCard({ name, price, multiplier, color, onConfigure }: any) {
 
 function ConfigModal({ isOpen, onClose, data }: any) {
    if (!isOpen) return null;
+   const isTier = data?.name !== undefined && data?.title === undefined;
    return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-12 animate-in fade-in duration-300">
          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-xl" onClick={onClose}></div>
-         <div className="bg-white w-full max-w-4xl border-2 border-slate-300 rounded-[64px] shadow-[0_100px_200px_-50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden border-t-[20px] border-t-emerald-500 p-16">
+         <div className="bg-white w-full max-w-5xl border-2 border-slate-300 rounded-[64px] shadow-[0_100px_200px_-50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden border-t-[20px] border-t-emerald-500 p-16">
             <button onClick={onClose} className="absolute top-12 right-12 w-16 h-16 bg-slate-100 rounded-3xl flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white transition-all">
                <X size={32} />
             </button>
-            <div className="mb-16">
+            <div className="mb-14">
                <h3 className="text-4xl font-black tracking-tighter text-slate-900 uppercase">PTC Configuration</h3>
                <p className="text-slate-500 font-bold uppercase tracking-[0.4em] text-xs mt-4">Adjusting: {data?.name || data?.title || 'Network Node'}</p>
             </div>
-            <div className="space-y-12 mb-16">
-               <div className="grid grid-cols-2 gap-10">
-                  <div className="space-y-4">
-                     <label className="text-[11px] font-black tracking-[0.4em] text-slate-400 uppercase ml-4">Pricing/Reward Oracle</label>
-                     <input type="number" defaultValue={data?.price || data?.reward} className="w-full bg-slate-100 border-2 border-slate-200 rounded-[32px] px-10 py-6 text-lg font-black outline-none focus:border-emerald-500 shadow-inner" />
+            <div className="grid grid-cols-2 gap-12 mb-16 overflow-y-auto max-h-[60vh] pr-4 scrollbar-hide">
+               {/* Core Parameters */}
+               <div className="space-y-8">
+                  <div className="p-10 bg-slate-50 border-2 border-slate-100 rounded-[44px] space-y-8">
+                     <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400 flex items-center gap-3"><Zap size={16} /> Operational Nodes</h4>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">{isTier ? 'Tier Activation Price ($)' : 'Reward Pool (Coins)'}</label>
+                        <input type="number" defaultValue={data?.price || data?.reward} className="w-full bg-white border-2 border-slate-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-emerald-500 shadow-sm" />
+                     </div>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">{isTier ? 'Earning Multiplier (x)' : 'Ad Duration (Sec)'}</label>
+                        <input type="text" defaultValue={data?.mult || data?.duration} className="w-full bg-white border-2 border-slate-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-emerald-500 shadow-sm" />
+                     </div>
                   </div>
-                  <div className="space-y-4">
-                     <label className="text-[11px] font-black tracking-[0.4em] text-slate-400 uppercase ml-4">Duration/Multiplier</label>
-                     <input type="text" defaultValue={data?.duration || data?.mult} className="w-full bg-slate-100 border-2 border-slate-200 rounded-[32px] px-10 py-6 text-lg font-black outline-none focus:border-emerald-500 shadow-inner" />
+               </div>
+
+               {/* MLM/Referral Logic (Visible only for Tiers or everywhere as basic) */}
+               <div className="space-y-8">
+                  <div className="p-10 bg-emerald-50 border-2 border-emerald-100 rounded-[44px] space-y-8">
+                     <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-emerald-400 flex items-center gap-3"><Share2 size={16} /> Affiliate Protocol</h4>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-emerald-900 ml-4">Referral Commission (%)</label>
+                        <input type="number" defaultValue={data?.ref || 10} className="w-full bg-white border-2 border-emerald-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-emerald-500 shadow-sm" />
+                     </div>
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-emerald-900 ml-4">Ad View Matching (%)</label>
+                        <input type="number" defaultValue={data?.matching || 5} className="w-full bg-white border-2 border-emerald-200 rounded-[28px] px-8 py-5 text-lg font-black outline-none focus:border-emerald-500 shadow-sm" />
+                     </div>
                   </div>
                </div>
             </div>
-            <button onClick={onClose} className="w-full py-8 bg-slate-900 text-white rounded-[32px] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl hover:bg-emerald-600 transition-all">Synchronize Parameters</button>
+            <button onClick={onClose} className="w-full py-8 bg-slate-900 text-white rounded-[32px] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl hover:bg-emerald-600 transition-all">Synchronize Network Rules</button>
          </div>
       </div>
    )
