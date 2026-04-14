@@ -12,7 +12,8 @@ import {
   Trash2,
   Edit2,
   CheckCircle2,
-  Globe
+  Globe,
+  TrendingUp
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -25,6 +26,26 @@ export default function PTCPage() {
 
   return (
     <div className="space-y-10 pb-20">
+      {/* PTC Membership Tiers */}
+      <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)]">
+        <div className="flex justify-between items-center mb-10">
+           <div className="flex items-center gap-4 text-emerald-500">
+              <CheckCircle2 size={28} />
+              <h3 className="text-2xl font-black tracking-tight text-slate-900">Membership Tiers</h3>
+           </div>
+           <button className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-colors">
+              <Plus size={14} /> Add Tier
+           </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+           <TierCard name="Free" price="0" multiplier="1.0x" color="slate" />
+           <TierCard name="Silver" price="25" multiplier="2.5x" color="orange" />
+           <TierCard name="Gold" price="100" multiplier="5.0x" color="blue" />
+           <TierCard name="Diamond" price="500" multiplier="12.0x" color="purple" />
+        </div>
+      </div>
+
       {/* Global PTC Settings */}
       <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)]">
         <div className="flex items-center gap-4 text-orange-500 mb-8">
@@ -138,4 +159,33 @@ export default function PTCPage() {
       </div>
     </div>
   );
+}
+
+function TierCard({ name, price, multiplier, color }: any) {
+   const colorMap: any = {
+      slate: "bg-slate-50 border-slate-100 text-slate-400 group-hover:border-slate-300",
+      orange: "bg-orange-50 border-orange-100 text-orange-500 group-hover:border-orange-300",
+      blue: "bg-blue-50 border-blue-100 text-blue-500 group-hover:border-blue-300",
+      purple: "bg-purple-50 border-purple-100 text-purple-500 group-hover:border-purple-300",
+   };
+
+   return (
+      <div className="bg-white border border-slate-200 p-8 rounded-[32px] group hover:border-orange-500/20 transition-all shadow-[0_15px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.06)] relative overflow-hidden">
+         <div className="absolute -right-4 -top-4 w-16 h-16 bg-slate-50 rounded-full group-hover:bg-orange-50 transition-colors"></div>
+         
+         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{name} Tier</p>
+         <div className="flex items-baseline gap-1 mb-6">
+            <span className="text-3xl font-black text-slate-900 tracking-tighter">${price}</span>
+            <span className="text-[10px] font-bold text-slate-400 lowercase">/lifetime</span>
+         </div>
+         
+         <div className={cn("inline-flex items-center gap-2 px-4 py-2 rounded-xl font-black text-xs uppercase tracking-widest mb-6 transition-all", colorMap[color])}>
+            <TrendingUp size={14} /> {multiplier} Earn
+         </div>
+
+         <button className="w-full py-3 bg-slate-50 border border-slate-100 text-slate-900 font-bold rounded-xl text-[10px] uppercase tracking-widest group-hover:bg-slate-900 group-hover:text-white transition-all">
+            Edit Tier
+         </button>
+      </div>
+   )
 }

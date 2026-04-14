@@ -11,7 +11,8 @@ import {
   Settings,
   Plus,
   ArrowRightCircle,
-  Clock
+  Clock,
+  ShieldCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { 
@@ -135,26 +136,29 @@ export default function XtremePage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Xtreme Payplans (Packages) */}
-        <div className="lg:col-span-1 bg-white border border-slate-200 rounded-[32px] p-8 shadow-[0_30px_60px_rgba(0,0,0,0.05)] space-y-8">
-           <div className="flex items-center justify-between">
-              <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">/ active_payplans</h3>
-              <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-colors">
-                 <Plus size={14} /> New Plan
-              </button>
+      {/* MATRIX LEVEL MANAGEMENT */}
+      <div className="bg-white border border-slate-200 rounded-[40px] p-10 shadow-[0_30px_60px_rgba(0,0,0,0.06)]">
+        <div className="flex justify-between items-center mb-10">
+           <div className="flex items-center gap-4 text-orange-500">
+              <ShieldCheck size={28} />
+              <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase">Matrix Level & Pricing Manager</h3>
            </div>
-
-           <div className="space-y-4 max-h-[450px] overflow-y-auto pr-2 scrollbar-hide">
-              <PackageItem name="Starter" price="25" cycleReward="100" />
-              <PackageItem name="Advanced" price="100" cycleReward="450" />
-              <PackageItem name="Elite" price="500" cycleReward="2,250" />
-              <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" />
-           </div>
+           <button className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-600 transition-colors">
+              <Plus size={14} /> Add New Level
+           </button>
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+           <PackageItem name="Starter" price="25" cycleReward="100" />
+           <PackageItem name="Advanced" price="100" cycleReward="450" />
+           <PackageItem name="Elite" price="500" cycleReward="2,250" />
+           <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
         {/* Global PIF Queue (Pay It Forward) */}
-        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.05)]">
+        <div className="bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.05)]">
            <div className="p-8 border-b border-slate-100 flex justify-between items-center">
               <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase">Real-time Matrix Spillover Log</h3>
               <button className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold">
