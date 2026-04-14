@@ -13,7 +13,8 @@ import {
   ArrowRightCircle,
   Clock,
   ShieldCheck,
-  ArrowUpRight
+  ArrowUpRight,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { 
@@ -36,10 +37,17 @@ const data = [
 
 export default function XtremePage() {
   const [mounted, setMounted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<any>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const openConfig = (tier: any) => {
+    setSelectedTier(tier);
+    setIsModalOpen(true);
+  }
 
   return (
     <div className="space-y-12 pb-20">
@@ -52,17 +60,13 @@ export default function XtremePage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Matrix Growth Chart */}
         <div className="lg:col-span-2 bg-white border-2 border-slate-300 rounded-[56px] p-12 shadow-[0_60px_120px_-30px_rgba(15,23,42,0.2)] relative overflow-hidden group border-t-[8px] border-t-orange-500">
           <div className="absolute top-0 right-0 w-40 h-40 bg-orange-50 rounded-bl-full translate-x-12 -translate-y-12"></div>
-          
           <div className="flex justify-between items-center mb-12 relative z-10">
             <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-[0.2em] leading-none">Matrix Performance</h3>
-            <div className="flex gap-2">
-               <span className="flex items-center gap-2 text-[10px] font-black text-white px-5 py-2.5 bg-orange-500 rounded-full shadow-lg shadow-orange-500/20">
-                 <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></div> REAL-TIME GROWTH
-               </span>
-            </div>
+            <span className="flex items-center gap-2 text-[10px] font-black text-white px-5 py-2.5 bg-orange-500 rounded-full shadow-lg shadow-orange-500/20">
+               <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></div> REAL-TIME GROWTH
+            </span>
           </div>
           <div className="h-[380px] w-full relative z-10">
             {mounted && (
@@ -87,7 +91,6 @@ export default function XtremePage() {
           </div>
         </div>
 
-        {/* Matrix Global Config */}
         <div className="bg-white border-2 border-slate-300 rounded-[56px] p-12 shadow-[0_60px_120px_-30px_rgba(15,23,42,0.2)] space-y-10 border-t-[8px] border-t-slate-900">
            <div className="flex items-center justify-between">
               <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-[0.2em]">/ config</h3>
@@ -102,7 +105,6 @@ export default function XtremePage() {
                     <option>Personal Frontline Priority</option>
                  </select>
               </div>
-
               <div className="grid grid-cols-2 gap-6 px-2">
                  <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Min Entry</label>
@@ -124,8 +126,7 @@ export default function XtremePage() {
                  </div>
               </div>
            </div>
-
-           <button className="w-full py-6 bg-orange-500 text-white font-black rounded-[32px] shadow-[0_30px_60px_rgba(249,115,22,0.4)] text-[11px] uppercase tracking-[0.3em] hover:scale-[1.05] active:scale-95 transition-all">
+           <button onClick={() => setIsModalOpen(true)} className="w-full py-6 bg-orange-500 text-white font-black rounded-[32px] shadow-[0_30px_60px_rgba(249,115,22,0.4)] text-[11px] uppercase tracking-[0.3em] hover:scale-[1.05] active:scale-95 transition-all">
               Update Matrix Core
            </button>
         </div>
@@ -134,7 +135,6 @@ export default function XtremePage() {
       {/* MATRIX LEVEL MANAGEMENT */}
       <div className="bg-white border-2 border-slate-300 rounded-[64px] p-16 shadow-[0_80px_160px_-40px_rgba(15,23,42,0.25)] relative overflow-hidden group border-t-[12px] border-t-orange-500">
         <div className="absolute top-0 right-0 w-44 h-44 bg-orange-50/50 rounded-bl-full translate-x-12 -translate-y-12 transition-all duration-1000 group-hover:scale-125"></div>
-        
         <div className="flex justify-between items-center mb-16 relative z-10">
            <div className="flex items-center gap-6 text-orange-500">
               <div className="w-20 h-20 bg-orange-50 rounded-[32px] border-2 border-orange-200 flex items-center justify-center shadow-xl shadow-orange-500/5"><ShieldCheck size={40} /></div>
@@ -143,79 +143,42 @@ export default function XtremePage() {
                  <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mt-2">Manage Matrix tiers and yield configuration</p>
               </div>
            </div>
-           <button className="flex items-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-[24px] text-[11px] font-black uppercase tracking-[0.3em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/30">
+           <button onClick={() => openConfig({name: 'New Tier', price: 0, reward: 0})} className="flex items-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-[24px] text-[11px] font-black uppercase tracking-[0.3em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/30">
               <Plus size={20} /> Deploy New Level
            </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
-           <PackageItem name="Starter" price="25" cycleReward="100" />
-           <PackageItem name="Advanced" price="100" cycleReward="450" />
-           <PackageItem name="Elite" price="500" cycleReward="2,250" />
-           <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" />
+           <PackageItem name="Starter" price="25" cycleReward="100" onConfigure={() => openConfig({name: 'Starter', price: 25, reward: 100})} />
+           <PackageItem name="Advanced" price="100" cycleReward="450" onConfigure={() => openConfig({name: 'Advanced', price: 100, reward: 450})} />
+           <PackageItem name="Elite" price="500" cycleReward="2,250" onConfigure={() => openConfig({name: 'Elite', price: 500, reward: 2250})} />
+           <PackageItem name="Xtreme" price="2,500" cycleReward="12,000" onConfigure={() => openConfig({name: 'Xtreme', price: 2500, reward: 12000})} />
         </div>
       </div>
 
-      <div className="bg-white border-2 border-slate-300 rounded-[64px] overflow-hidden shadow-[0_80px_160px_-40px_rgba(15,23,42,0.25)] border-t-[12px] border-t-slate-900">
-           <div className="p-16 border-b-2 border-slate-200 flex justify-between items-center bg-slate-100/50">
-              <div className="flex items-center gap-6">
-                 <div className="w-4 h-12 bg-orange-500 rounded-full"></div>
-                 <div>
-                   <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-[0.2em]">Spillover Node Log</h3>
-                   <p className="text-slate-500 text-xs font-black mt-2 uppercase tracking-widest opacity-80">Real-time global position tracking engine</p>
-                 </div>
-              </div>
-              <button className="flex items-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-[24px] text-[11px] font-black uppercase tracking-[0.3em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/30">
-                 <Plus size={20} /> Manual PIF Trace
-              </button>
-           </div>
-           <table className="w-full text-left">
-              <thead>
-                 <tr className="bg-slate-100 text-slate-500 text-[11px] font-black uppercase tracking-[0.3em] border-b-2 border-slate-200">
-                    <th className="px-16 py-8">Resident Identity</th>
-                    <th className="px-16 py-8">Position Hash</th>
-                    <th className="px-16 py-8">Active Status</th>
-                    <th className="px-16 py-8">Cycle Status</th>
-                    <th className="px-16 py-8 text-right">Time Sync</th>
-                 </tr>
-              </thead>
-              <tbody className="divide-y-2 divide-slate-100">
-                 <XtremeLogRow user="crypto_king" id="#XT-921" status="Cycling" progress={85} time="2m ago" />
-                 <XtremeLogRow user="ahmad_ws" id="#XT-918" status="Active" progress={42} time="14m ago" />
-                 <XtremeLogRow user="sarah_pro" id="#XT-882" status="Completed" progress={100} time="1h ago" />
-              </tbody>
-           </table>
-      </div>
+      {/* MODAL */}
+      <ConfigModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={selectedTier} />
     </div>
   );
 }
 
 function XtremeCard({ title, value, subValue, icon: Icon, color }: any) {
-  const colorMap: any = {
-    orange: "text-orange-500 bg-orange-50 border-orange-200",
-    emerald: "text-emerald-500 bg-emerald-50 border-emerald-200",
-    blue: "text-blue-500 bg-blue-50 border-blue-200",
-    purple: "text-purple-500 bg-purple-50 border-purple-200",
-  };
-
   const borderMap: any = {
     orange: "border-l-orange-500",
     emerald: "border-l-emerald-500",
     blue: "border-l-blue-500",
     purple: "border-l-purple-500",
   }
-
   return (
     <div className={cn("bg-white border-2 border-slate-300 p-12 rounded-[52px] shadow-[0_50px_100px_-15px_rgba(15,23,42,0.2)] group hover:border-orange-500 transition-all duration-700 hover:shadow-[0_60px_120px_-15px_rgba(249,115,22,0.3)] hover:-translate-y-4 relative overflow-hidden border-l-[12px]", borderMap[color])}>
-      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-6 group-hover:-translate-y-6 transition-transform duration-1000 opacity-60"></div>
-      
-      <div className={cn("p-6 rounded-[28px] mb-10 relative z-10 border-2 shadow-sm inline-flex", colorMap[color])}>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full translate-x-12 -translate-y-12 opacity-60"></div>
+      <div className={cn("p-6 rounded-[28px] mb-10 relative z-10 border-2 shadow-sm inline-flex", color === 'orange' ? "bg-orange-50 text-orange-500 border-orange-200" : "")}>
         <Icon size={32} />
       </div>
       <div className="relative z-10">
-        <h4 className="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] mb-3 group-hover:text-slate-900 transition-colors">{title}</h4>
+        <h4 className="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] mb-3">{title}</h4>
         <p className="text-5xl font-black text-slate-900 tracking-tighter mb-6 leading-none">{value}</p>
-        <div className="flex items-center gap-3 px-5 py-3 bg-slate-100 border-2 border-slate-200 rounded-full w-fit group-hover:bg-orange-50 group-hover:border-orange-200 transition-all shadow-inner">
+        <div className="flex items-center gap-3 px-5 py-3 bg-slate-100 border-2 border-slate-200 rounded-full w-fit">
            <span className="text-[10px] text-slate-600 font-black uppercase tracking-widest">{subValue}</span>
            <ArrowUpRight size={14} className="text-orange-500" />
         </div>
@@ -224,44 +187,9 @@ function XtremeCard({ title, value, subValue, icon: Icon, color }: any) {
   );
 }
 
-function XtremeLogRow({ user, id, status, progress, time }: any) {
-   return (
-      <tr className="hover:bg-slate-50 transition-all duration-500 group">
-         <td className="px-16 py-10">
-            <p className="font-black text-slate-900 text-2xl tracking-tight leading-none">@{user}</p>
-         </td>
-         <td className="px-16 py-10">
-            <span className="font-mono text-sm text-slate-500 font-black bg-white px-5 py-3 rounded-2xl border-2 border-slate-200 shadow-sm">{id}</span>
-         </td>
-         <td className="px-16 py-10">
-            <span className={cn(
-               "px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-sm border-2 transition-all",
-               status === 'Completed' ? "bg-emerald-50 text-emerald-600 border-emerald-200 group-hover:bg-emerald-500 group-hover:text-white group-hover:border-emerald-500" : "bg-orange-50 text-orange-600 border-orange-200 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500"
-            )}>{status}</span>
-         </td>
-         <td className="px-16 py-10">
-            <div className="flex items-center gap-8">
-               <div className="w-44 h-4 bg-slate-100 rounded-full overflow-hidden border-2 border-slate-200 p-1 shadow-inner">
-                  <div 
-                    className={cn("h-full rounded-full transition-all duration-1000 shadow-sm", status === 'Completed' ? "bg-emerald-500" : "bg-orange-500")} 
-                    style={{ width: `${progress}%` }}
-                  ></div>
-               </div>
-               <span className="text-[11px] font-black text-white bg-slate-900 px-4 py-2 rounded-xl shadow-2xl">{progress}%</span>
-            </div>
-         </td>
-         <td className="px-16 py-10 text-right">
-            <p className="text-xs text-slate-500 font-black uppercase tracking-widest whitespace-nowrap opacity-60 group-hover:opacity-100 transition-opacity">{time} GLOBAL SYNC</p>
-         </td>
-      </tr>
-   )
-}
-
-function PackageItem({ name, price, cycleReward }: any) {
+function PackageItem({ name, price, cycleReward, onConfigure }: any) {
    return (
       <div className="bg-white border-2 border-slate-300 p-12 rounded-[48px] group transition-all duration-700 hover:border-orange-500 shadow-[0_40px_80px_-15px_rgba(15,23,42,0.15)] hover:shadow-[0_60px_100px_-15px_rgba(249,115,22,0.3)] hover:-translate-y-4 relative overflow-hidden border-t-[10px] border-t-slate-100 hover:border-t-orange-500">
-         <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-8 group-hover:-translate-y-8 transition-all duration-1000 opacity-60"></div>
-         
          <div className="relative z-10">
             <div className="flex items-center gap-6 mb-10">
                 <div className="w-20 h-20 rounded-[28px] bg-orange-50 border-2 border-orange-200 flex items-center justify-center text-orange-500 transition-all group-hover:rotate-12 group-hover:scale-110 shadow-2xl shadow-orange-500/10">
@@ -272,20 +200,45 @@ function PackageItem({ name, price, cycleReward }: any) {
                    <p className="text-[10px] font-black text-orange-500 uppercase tracking-[0.2em] leading-none mt-2 bg-orange-50 px-3 py-1 rounded-full w-fit">ADMIN_CONFIGURED</p>
                 </div>
             </div>
-
             <div className="flex items-baseline gap-2 mb-12 px-2">
                <span className="text-6xl font-black text-slate-900 tracking-tighter leading-none">${price}</span>
-               <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2">/POS_DATA</span>
             </div>
-            
-            <div className="p-8 bg-slate-100 border-2 border-slate-200 rounded-[36px] mb-12 group-hover:bg-orange-50 group-hover:border-orange-200 transition-all shadow-inner">
+            <div className="p-8 bg-slate-100 border-2 border-slate-200 rounded-[36px] mb-12 shadow-inner">
                <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-500 mb-3">Cycle Reward Pool</p>
                <p className="text-3xl font-black text-slate-900 tracking-tighter">{cycleReward} <span className="text-sm text-slate-400 font-bold ml-1 uppercase">Coins</span></p>
             </div>
+            <button onClick={onConfigure} className="w-full py-6 bg-slate-900 text-white font-black rounded-[24px] text-[11px] uppercase tracking-[0.3em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/40">Re-Configure Tier</button>
+         </div>
+      </div>
+   )
+}
 
-            <button className="w-full py-6 bg-slate-900 text-white font-black rounded-[24px] text-[11px] uppercase tracking-[0.3em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/40">
-               Re-Configure Tier
+function ConfigModal({ isOpen, onClose, data }: any) {
+   if (!isOpen) return null;
+   return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-12 animate-in fade-in duration-300">
+         <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-xl" onClick={onClose}></div>
+         <div className="bg-white w-full max-w-4xl border-2 border-slate-300 rounded-[64px] shadow-[0_100px_200px_-50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden border-t-[20px] border-t-orange-500 p-16">
+            <button onClick={onClose} className="absolute top-12 right-12 w-16 h-16 bg-slate-100 rounded-3xl flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white transition-all">
+               <X size={32} />
             </button>
+            <div className="mb-16">
+               <h3 className="text-4xl font-black tracking-tighter text-slate-900 uppercase">Tier Configuration</h3>
+               <p className="text-slate-500 font-bold uppercase tracking-[0.4em] text-xs mt-4">Adjusting: {data?.name || 'Matrix Cluster'}</p>
+            </div>
+            <div className="space-y-12 mb-16">
+               <div className="grid grid-cols-2 gap-10">
+                  <div className="space-y-4">
+                     <label className="text-[11px] font-black tracking-[0.4em] text-slate-400 uppercase ml-4">Entry Price ($)</label>
+                     <input type="number" defaultValue={data?.price} className="w-full bg-slate-100 border-2 border-slate-200 rounded-[32px] px-10 py-6 text-lg font-black outline-none focus:border-orange-500 shadow-inner" />
+                  </div>
+                  <div className="space-y-4">
+                     <label className="text-[11px] font-black tracking-[0.4em] text-slate-400 uppercase ml-4">Cycle Reward (Coins)</label>
+                     <input type="number" defaultValue={data?.reward} className="w-full bg-slate-100 border-2 border-slate-200 rounded-[32px] px-10 py-6 text-lg font-black outline-none focus:border-orange-500 shadow-inner" />
+                  </div>
+               </div>
+            </div>
+            <button onClick={onClose} className="w-full py-8 bg-slate-900 text-white rounded-[32px] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl hover:bg-orange-600 transition-all">Synchronize Parameters</button>
          </div>
       </div>
    )

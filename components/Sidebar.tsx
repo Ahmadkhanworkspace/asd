@@ -4,81 +4,97 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  LayoutDashboard, 
+  BarChart3, 
+  MousePointer2, 
+  Zap, 
+  CheckCircle2, 
+  Share2, 
   Users, 
-  Banknote, 
-  CheckSquare, 
-  Settings, 
-  LogOut,
-  Bell,
-  Zap,
-  Gamepad2,
-  Megaphone,
-  Briefcase
+  Settings,
+  ShoppingBag,
+  Trophy,
+  LayoutDashboard
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const navItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Users', href: '/users', icon: Users },
-  { name: 'EarnX Xtreme', href: '/xtreme', icon: Zap },
-  { name: 'PTC Ads', href: '/ptc', icon: Megaphone },
-  { name: 'Micro Tasks', href: '/tasks', icon: Briefcase },
-  { name: 'Games Config', href: '/games', icon: Gamepad2 },
-  { name: 'Deposits', href: '/deposits', icon: Banknote },
-  { name: 'Withdrawals', href: '/withdrawals', icon: LogOut },
-  { name: 'Ledger', href: '/ledger', icon: LayoutDashboard },
-  { name: 'Notifications', href: '/notifications', icon: Bell },
-  { name: 'Settings', href: '/settings', icon: Settings },
+const menuItems = [
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
+  { icon: MousePointer2, label: 'PTC Master', href: '/ptc' },
+  { icon: Zap, label: 'EarnX Xtreme', href: '/xtreme' },
+  { icon: CheckCircle2, label: 'Validator', href: '/tasks' },
+  { icon: ShoppingBag, label: 'Marketplace', href: '/marketplace' },
+  { icon: Trophy, label: 'Seasons', href: '/marketplace?tab=seasons' },
+  { icon: Share2, label: 'Marketing', href: '/marketing' },
+  { icon: Users, label: 'Users', href: '/users' },
+  { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col h-screen w-72 bg-white border-r-2 border-slate-200 text-slate-900 shadow-[10px_0_40px_rgba(0,0,0,0.03)] relative z-50">
-      <div className="p-8 pb-12">
-        <h1 className="text-2xl font-black tracking-tighter flex items-center gap-3">
-          <div className="w-10 h-10 bg-orange-500 rounded-2xl flex items-center justify-center text-white italic shadow-lg shadow-orange-500/30 transform -rotate-6 group-hover:rotate-0 transition-transform">E</div>
-          <div className="flex flex-col leading-none">
-             <span className="text-xl">EarnX</span>
-             <span className="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em] mt-1">Admin Central</span>
-          </div>
-        </h1>
-      </div>
-      
-      <nav className="flex-1 px-6 space-y-2 mt-2 overflow-y-auto custom-scrollbar">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href;
-          
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-500 group relative",
-                isActive 
-                  ? "bg-slate-900 text-white shadow-2xl shadow-slate-900/20 translate-x-2" 
-                  : "text-slate-500 hover:text-slate-900 hover:bg-slate-50 hover:translate-x-1"
-              )}
-            >
-              <Icon size={20} className={cn(isActive ? "text-orange-500" : "text-slate-400 group-hover:text-orange-500 transition-all")} />
-              <span className="font-black text-sm tracking-tight">{item.name}</span>
-              {isActive && (
-                 <div className="ml-auto w-1.5 h-6 bg-orange-500 rounded-full shadow-[0_0_15px_rgba(249,115,22,0.5)]"></div>
-              )}
-            </Link>
-          );
-        })}
-      </nav>
+    <aside className="w-[340px] bg-white border-r-2 border-slate-300 flex flex-col h-screen sticky top-0 shadow-[40px_0_100px_-20px_rgba(15,23,42,0.15)] z-50 overflow-hidden">
+      <div className="p-12">
+        <div className="flex items-center gap-4 mb-16 relative group cursor-pointer">
+           <div className="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-orange-500/40 rotate-6 transition-all group-hover:rotate-0">
+             <Zap size={32} fill="white" />
+           </div>
+           <div>
+              <h1 className="text-3xl font-black tracking-tighter text-slate-900 leading-none">EarnX</h1>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 mt-1">Admin v2.5</p>
+           </div>
+        </div>
 
-      <div className="p-6 border-t-2 border-slate-100 bg-slate-50/50">
-        <button className="flex items-center gap-4 px-5 py-4 w-full text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-2xl transition-all duration-300 group font-black text-sm uppercase tracking-widest border-2 border-transparent hover:border-red-100">
-          <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
-          <span>Exit Panel</span>
-        </button>
+        <nav className="space-y-3">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-5 px-8 py-5 rounded-[24px] transition-all duration-500 group relative overflow-hidden",
+                  isActive 
+                    ? "bg-slate-900 text-white shadow-2xl shadow-slate-900/30 translate-x-3" 
+                    : "text-slate-400 hover:text-slate-900 hover:bg-slate-100"
+                )}
+              >
+                {isActive && (
+                  <div className="absolute left-0 top-0 w-1.5 h-full bg-orange-500"></div>
+                )}
+                <item.icon size={26} className={cn(
+                  "transition-all duration-500",
+                  isActive ? "text-orange-500 rotate-12" : "group-hover:rotate-12"
+                )} />
+                <span className="font-black text-xs uppercase tracking-[0.3em]">{item.label}</span>
+                {!isActive && (
+                  <div className="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                     <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                  </div>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
-    </div>
+
+      <div className="mt-auto p-10">
+        <div className="p-8 bg-slate-50 border-2 border-slate-200 rounded-[36px] relative overflow-hidden group">
+           <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-orange-500/5 rounded-full transition-all group-hover:scale-150"></div>
+           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Server Load</p>
+           <div className="flex justify-between items-end mb-3">
+              <p className="text-2xl font-black text-slate-900 tracking-tighter">14.2ms</p>
+              <div className="flex gap-1.5 mb-2">
+                 {[1,2,3,4,5].map(i => (
+                    <div key={i} className={cn("w-1.5 h-4 rounded-full", i < 4 ? "bg-orange-500" : "bg-slate-200")}></div>
+                 ))}
+              </div>
+           </div>
+           <div className="w-full h-2.5 bg-white border-2 border-slate-200 rounded-full overflow-hidden p-0.5">
+              <div className="w-3/4 h-full bg-orange-500 rounded-full transition-all duration-1000"></div>
+           </div>
+        </div>
+      </div>
+    </aside>
   );
 }

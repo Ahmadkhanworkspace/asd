@@ -12,7 +12,10 @@ import {
   ArrowDownRight,
   Download,
   Wallet,
-  Coins
+  Coins,
+  Activity,
+  ShieldCheck,
+  Zap
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -23,7 +26,12 @@ import {
   Tooltip, 
   ResponsiveContainer,
   BarChart,
-  Bar
+  Bar,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis
 } from 'recharts';
 
 const earningsData = [
@@ -36,12 +44,13 @@ const earningsData = [
   { name: 'Sun', revenue: 7490, profit: 5300 },
 ];
 
-const installsData = [
-  { name: 'Jan', installs: 400 },
-  { name: 'Feb', installs: 600 },
-  { name: 'Mar', installs: 800 },
-  { name: 'Apr', installs: 1200 },
-  { name: 'May', installs: 1500 },
+const healthData = [
+  { subject: 'Engagement', A: 120, B: 110, fullMark: 150 },
+  { subject: 'Retention', A: 98, B: 130, fullMark: 150 },
+  { subject: 'Earning', A: 86, B: 130, fullMark: 150 },
+  { subject: 'Referral', A: 99, B: 100, fullMark: 150 },
+  { subject: 'Uptime', A: 85, B: 90, fullMark: 150 },
+  { subject: 'Liquidity', A: 65, B: 85, fullMark: 150 },
 ];
 
 export default function DashboardPage() {
@@ -53,6 +62,19 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-12 pb-20">
+      {/* Live Activity Pulse Bar */}
+      <div className="bg-slate-900 border-2 border-slate-800 rounded-[32px] p-6 flex items-center justify-between shadow-2xl relative overflow-hidden group">
+         <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent animate-pulse"></div>
+         <div className="flex items-center gap-6 relative z-10">
+            <div className="w-4 h-4 rounded-full bg-emerald-500 animate-ping"></div>
+            <p className="text-[11px] font-black text-white uppercase tracking-[0.4em]">Live Global Pulse: <span className="text-orange-500">1,242</span> operations/sec across <span className="text-orange-500">14</span> nodes</p>
+         </div>
+         <div className="flex gap-4 relative z-10">
+            <div className="px-5 py-2 bg-white/10 rounded-full border border-white/10 text-[10px] font-black text-white uppercase tracking-widest">Master Node: SEOUL-01</div>
+            <div className="px-5 py-2 bg-emerald-500/20 rounded-full border border-emerald-500/20 text-[10px] font-black text-emerald-400 uppercase tracking-widest">Health: 99.9%</div>
+         </div>
+      </div>
+
       {/* Primary Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <StatCard title="Total Users" value="24,562" icon={Users} color="orange" trend="+12%" isPositive={true} />
@@ -63,19 +85,20 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Main Revenue Chart */}
-        <div className="lg:col-span-2 bg-white border-2 border-slate-300 rounded-[48px] p-12 shadow-[0_60px_100px_-20px_rgba(15,23,42,0.25)] border-t-[8px] border-t-orange-500">
-          <div className="flex justify-between items-center mb-10">
+        <div className="lg:col-span-2 bg-white border-2 border-slate-300 rounded-[48px] p-12 shadow-[0_60px_100px_-20px_rgba(15,23,42,0.25)] border-t-[8px] border-t-orange-500 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-50/50 rounded-bl-full translate-x-32 -translate-y-32"></div>
+          <div className="flex justify-between items-center mb-10 relative z-10">
             <div>
               <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase tracking-widest">Platform Analytics</h3>
               <p className="text-slate-500 text-sm font-bold mt-1">Revenue vs payouts performance across 7 days</p>
             </div>
             <div className="flex gap-4">
-               <div className="px-6 py-3 bg-slate-100 border-2 border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-900">
+               <div className="px-6 py-3 bg-white border-2 border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-900 shadow-sm">
                   Last 7 Days
                </div>
             </div>
           </div>
-          <div className="h-[400px] w-full">
+          <div className="h-[400px] w-full relative z-10">
             {mounted && (
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={earningsData}>
@@ -98,70 +121,49 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Small Data Cards */}
-        <div className="space-y-8">
-           <MiniDataCard title="Ad Clicks" value="142,402" icon={MousePointer2} color="orange" />
-           <MiniDataCard title="Game Tokens" value="89,120" icon={Coins} color="blue" />
-           <MiniDataCard title="Deposits" value="$5,240.00" icon={Wallet} color="emerald" />
+        {/* Platform Health Visualizer */}
+        <div className="bg-white border-2 border-slate-300 rounded-[48px] p-12 shadow-[0_60px_100px_-20px_rgba(15,23,42,0.25)] border-t-[8px] border-t-slate-900 flex flex-col items-center group">
+           <h3 className="text-xl font-black tracking-tight text-slate-900 uppercase tracking-[0.2em] mb-10 w-full text-center">Protocol Integrity</h3>
+           <div className="h-[320px] w-full flex items-center justify-center">
+              {mounted && (
+                 <ResponsiveContainer width="100%" height="100%">
+                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={healthData}>
+                       <PolarGrid stroke="#e2e8f0" />
+                       <PolarAngleAxis dataKey="subject" tick={{fill: '#64748b', fontSize: 10, fontWeight: 'black', textAnchor: 'middle'}} />
+                       <PolarRadiusAxis axisLine={false} tick={false} />
+                       <Radar name="Platform" dataKey="A" stroke="#f97316" fill="#f97316" fillOpacity={0.4} strokeWidth={4} />
+                    </RadarChart>
+                 </ResponsiveContainer>
+              )}
+           </div>
            
-           <div className="bg-orange-500 rounded-[48px] p-10 text-white shadow-[0_60px_100px_rgba(249,115,22,0.4)] relative overflow-hidden group border-4 border-white/30">
-              <div className="absolute -right-8 -top-8 w-48 h-48 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
-              <div className="relative z-10">
-                <p className="text-white font-black uppercase tracking-[0.3em] text-[10px] mb-4 bg-black/20 px-4 py-1.5 rounded-full w-fit border border-white/20">Production Node v2</p>
-                <h4 className="text-4xl font-black mb-10 leading-none tracking-tighter">Blazing Fast<br/>Real-time Core</h4>
-                <div className="flex items-center gap-3 px-6 py-3 bg-white/30 rounded-full w-fit border border-white/40 backdrop-blur-xl">
-                   <div className="w-3 h-3 bg-white rounded-full animate-pulse shadow-[0_0_15px_white]"></div>
-                   <span className="text-[10px] font-black tracking-widest uppercase text-white">System Operational</span>
-                </div>
+           <div className="mt-8 p-6 bg-slate-50 border-2 border-slate-100 rounded-[32px] w-full shadow-inner flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                 <div className="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center text-white shadow-xl shadow-orange-500/20"><ShieldCheck size={24} /></div>
+                 <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Status</p>
+                    <p className="text-base font-black text-slate-900 tracking-tight">OPTIMAL</p>
+                 </div>
+              </div>
+              <div className="text-right">
+                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Efficiency</p>
+                 <p className="text-base font-black text-emerald-600 tracking-tight">94.2%</p>
               </div>
            </div>
         </div>
       </div>
 
-      {/* Bottom Grid: Earning Breakdown & Recent Orders */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-         <div className="bg-white border-2 border-slate-300 rounded-[52px] p-12 shadow-[0_60px_120px_-20px_rgba(15,23,42,0.25)] border-t-[8px] border-t-slate-900">
-            <h3 className="text-xl font-black tracking-tight text-slate-900 mb-12 uppercase tracking-[0.2em] flex items-center gap-3">
-               <div className="w-2 h-8 bg-orange-500 rounded-full"></div> Earning Composition
-            </h3>
-            <div className="space-y-12">
-               <BreakdownItem label="PTC Ads" percentage={45} color="bg-orange-500" />
-               <BreakdownItem label="EarnX Xtreme" percentage={30} color="bg-blue-500" />
-               <BreakdownItem label="Spin Wheel & Games" percentage={15} color="bg-emerald-500" />
-               <BreakdownItem label="Micro Tasks" percentage={10} color="bg-purple-500" />
-            </div>
-         </div>
-
-         <div className="bg-white border-2 border-slate-300 rounded-[52px] p-12 shadow-[0_60px_120px_-20px_rgba(15,23,42,0.25)] border-t-[8px] border-t-orange-500">
-            <h3 className="text-xl font-black tracking-tight text-slate-900 mb-12 uppercase tracking-[0.2em] flex items-center gap-3">
-               <div className="w-2 h-8 bg-slate-900 rounded-full"></div> Installation Growth
-            </h3>
-            <div className="h-[280px] w-full">
-               {mounted && (
-                 <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={installsData}>
-                       <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#e2e8f0" />
-                       <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#475569', fontSize: 12, fontWeight: 'black'}} />
-                       <Tooltip cursor={{fill: '#f1f5f9'}} contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 30px 60px rgba(0,0,0,0.2)' }} />
-                       <Bar dataKey="installs" fill="#f97316" radius={[16, 16, 0, 0]} barSize={50} />
-                    </BarChart>
-                 </ResponsiveContainer>
-               )}
-            </div>
-         </div>
-      </div>
+      {/* Mini Data Section */}
+       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+           <MiniDataCard title="Ad Clicks" value="142,402" icon={MousePointer2} color="orange" />
+           <MiniDataCard title="Game Tokens" value="89,120" icon={Coins} color="blue" />
+           <MiniDataCard title="Live Sessions" value="1,245" icon={Activity} color="emerald" />
+       </div>
     </div>
   );
 }
 
 function StatCard({ title, value, icon: Icon, color, trend, isPositive }: any) {
-  const colorMap: any = {
-    orange: "text-orange-500 bg-orange-50 border-orange-200",
-    blue: "text-blue-500 bg-blue-50 border-blue-200",
-    emerald: "text-emerald-500 bg-emerald-50 border-emerald-200",
-    red: "text-red-500 bg-red-50 border-red-200",
-  };
-
   const borderMap: any = {
     orange: "border-t-orange-500",
     blue: "border-t-blue-500",
@@ -169,12 +171,19 @@ function StatCard({ title, value, icon: Icon, color, trend, isPositive }: any) {
     red: "border-t-red-500",
   }
 
+  const iconMap: any = {
+    orange: "bg-orange-50 text-orange-500 border-orange-200",
+    blue: "bg-blue-50 text-blue-500 border-blue-200",
+    emerald: "bg-emerald-50 text-emerald-500 border-emerald-200",
+    red: "bg-red-50 text-red-500 border-red-200",
+  }
+
   return (
     <div className={cn("bg-white border-2 border-slate-300 p-10 rounded-[48px] group transition-all duration-700 hover:border-orange-500 shadow-[0_40px_80px_-15px_rgba(15,23,42,0.2)] hover:shadow-[0_60px_120px_-15px_rgba(249,115,22,0.35)] hover:-translate-y-4 relative overflow-hidden border-t-[10px]", borderMap[color])}>
       <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-8 group-hover:-translate-y-8 transition-transform duration-1000 opacity-50"></div>
       
       <div className="flex justify-between items-start mb-10 relative z-10">
-        <div className={cn("p-6 rounded-[24px] border-2 shadow-sm", colorMap[color])}>
+        <div className={cn("p-6 rounded-[24px] border-2 shadow-sm", iconMap[color])}>
           <Icon size={32} />
         </div>
         <div className={cn(
@@ -207,20 +216,6 @@ function MiniDataCard({ title, value, icon: Icon, color }: any) {
          </div>
          <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-orange-500 group-hover:text-white transition-all shadow-sm border-2 border-slate-100">
             <ArrowUpRight size={24} />
-         </div>
-      </div>
-   )
-}
-
-function BreakdownItem({ label, percentage, color }: any) {
-   return (
-      <div className="space-y-6">
-         <div className="flex justify-between items-end px-2">
-            <p className="text-base font-black text-slate-900 uppercase tracking-widest leading-none">{label}</p>
-            <p className="text-[12px] font-black text-orange-500 uppercase tracking-[0.3em]">{percentage}% SHARE</p>
-         </div>
-         <div className="w-full h-8 bg-slate-100 rounded-full overflow-hidden border-2 border-slate-200 p-1.5 shadow-inner">
-            <div className={cn("h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(0,0,0,0.1)]", color)} style={{ width: `${percentage}%` }}></div>
          </div>
       </div>
    )
