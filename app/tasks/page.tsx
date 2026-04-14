@@ -2,139 +2,192 @@
 
 import React, { useState } from 'react';
 import { 
+  Briefcase, 
+  Search, 
   Plus, 
-  Settings2, 
-  Smartphone, 
-  ExternalLink, 
-  Trash2, 
-  Edit2,
-  Tv,
-  Gamepad
+  Filter, 
+  Clock, 
+  CheckCircle2, 
+  XCircle,
+  Eye,
+  FileText,
+  User,
+  Coins
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const tasks = [
-  { id: '1', title: 'Follow on Twitter', type: 'social', reward: '10 Coins', rewardUsd: '$0.01', status: 'active' },
-  { id: '2', title: 'Join Telegram Channel', type: 'social', reward: '15 Coins', rewardUsd: '$0.015', status: 'active' },
-  { id: '3', title: 'Install VPN App', type: 'app_install', reward: '150 Coins', rewardUsd: '$0.15', status: 'paused' },
-];
-
-export default function TasksAdsPage() {
-  const [activeTab, setActiveTab] = useState('tasks');
+export default function TasksPage() {
+  const [activeTab, setActiveTab] = useState('manager'); // 'manager' or 'approval'
 
   return (
-    <div className="space-y-6">
-      {/* Tabs */}
-      <div className="flex gap-4 border-b border-white/5 pb-4">
+    <div className="space-y-10 pb-20">
+      {/* Tab Navigation */}
+      <div className="flex gap-4 p-2 bg-white border border-slate-200 rounded-3xl w-fit shadow-sm">
         <button 
-          onClick={() => setActiveTab('tasks')}
+          onClick={() => setActiveTab('manager')}
           className={cn(
-            "px-6 py-2 rounded-xl text-sm font-bold transition-all",
-            activeTab === 'tasks' ? "bg-yellow-500 text-[#06080D]" : "text-gray-400 hover:text-white"
+            "px-8 py-3 rounded-2xl text-sm font-black transition-all",
+            activeTab === 'manager' ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20" : "text-slate-400 hover:text-slate-900"
           )}
         >
-          Manage Tasks
+          Task Manager
         </button>
         <button 
-          onClick={() => setActiveTab('ads')}
+          onClick={() => setActiveTab('approval')}
           className={cn(
-            "px-6 py-2 rounded-xl text-sm font-bold transition-all",
-            activeTab === 'ads' ? "bg-yellow-500 text-[#06080D]" : "text-gray-400 hover:text-white"
+            "px-8 py-3 rounded-2xl text-sm font-black transition-all flex items-center gap-2",
+            activeTab === 'approval' ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20" : "text-slate-400 hover:text-slate-900"
           )}
         >
-          Ad Configuration
+          Approval Queue
+          <span className="flex items-center justify-center w-5 h-5 bg-orange-100 text-orange-600 rounded-full text-[10px]">12</span>
         </button>
       </div>
 
-      {activeTab === 'tasks' ? (
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h3 className="text-xl font-bold">In-App Tasks</h3>
-            <button className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-[#06080D] px-4 py-2 rounded-xl text-sm font-bold transition-all">
-              <Plus size={18} />
-              Add Task
-            </button>
-          </div>
+      {activeTab === 'manager' ? <TaskManager /> : <ApprovalQueue />}
+    </div>
+  );
+}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tasks.map((task) => (
-              <div key={task.id} className="bg-[#0A0D14] border border-white/5 p-6 rounded-3xl relative group hover:border-yellow-500/20 transition-all">
-                <div className="flex justify-between items-start mb-4">
-                  <div className={cn(
-                    "p-3 rounded-2xl",
-                    task.type === 'social' ? "bg-blue-400/10 text-blue-400" : "bg-purple-400/10 text-purple-400"
-                  )}>
-                    {task.type === 'social' ? <Settings2 size={24} /> : <Smartphone size={24} />}
-                  </div>
-                  <span className={cn(
-                    "px-2 py-0.5 rounded-md text-[10px] font-bold uppercase",
-                    task.status === 'active' ? "bg-emerald-400/10 text-emerald-400" : "bg-red-400/10 text-red-400"
-                  )}>
-                    {task.status}
-                  </span>
-                </div>
-                <h4 className="text-lg font-bold mb-1">{task.title}</h4>
-                <p className="text-sm text-gray-500 mb-4">{task.reward} / {task.rewardUsd}</p>
-                <div className="flex gap-2">
-                  <button className="flex-1 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
-                    <Edit2 size={14} /> Edit
-                  </button>
-                  <button className="p-2 bg-red-400/10 hover:bg-red-400/20 text-red-400 rounded-xl transition-all">
-                    <Trash2 size={14} />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* AdMob Settings */}
-          <div className="bg-[#0A0D14] border border-white/5 p-8 rounded-3xl space-y-6">
-            <div className="flex items-center gap-4 text-yellow-500 mb-2">
-              <Tv size={24} />
-              <h3 className="text-xl font-bold">Google AdMob Configuration</h3>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm text-gray-500">Rewarded Ad Unit ID</label>
-                <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-yellow-500/50 outline-none" defaultValue="ca-app-pub-3940.../12345" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm text-gray-500">Reward per Ad (Coins)</label>
-                  <input type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-yellow-500/50 outline-none" defaultValue="10" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm text-gray-500">Daily Max Ads</label>
-                  <input type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-yellow-500/50 outline-none" defaultValue="10" />
-                </div>
-              </div>
-            </div>
-            <button className="w-full bg-yellow-500 text-[#06080D] font-bold py-3 rounded-xl hover:bg-yellow-600 transition-all">Update Ad Settings</button>
-          </div>
+function TaskManager() {
+  const [tasks] = useState([
+    { id: 1, title: 'Follow on X (Twitter)', category: 'Social', reward: 150, completions: 420, status: 'active' },
+    { id: 2, title: 'Download Mobile App', category: 'Mobile', reward: 500, completions: 125, status: 'active' },
+    { id: 3, title: 'Join Telegram Channel', category: 'Social', reward: 100, completions: 890, status: 'paused' },
+  ]);
 
-          {/* Game Rewards */}
-          <div className="bg-[#0A0D14] border border-white/5 p-8 rounded-3xl space-y-6">
-            <div className="flex items-center gap-4 text-purple-500 mb-2">
-              <Gamepad size={24} />
-              <h3 className="text-xl font-bold">Game Rewards Control</h3>
-            </div>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm text-gray-500">Spin & Win Max Reward (Coins)</label>
-                <input type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-yellow-500/50 outline-none" defaultValue="100" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm text-gray-500">Scratch Card Avg. Reward</label>
-                <input type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-yellow-500/50 outline-none" defaultValue="25" />
-              </div>
-            </div>
-            <button className="w-full bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition-all">Save Game Settings</button>
+  return (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+        <div className="p-10 border-b border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div>
+            <h3 className="text-xl font-black tracking-tight text-slate-900">Campaign Manager</h3>
+            <p className="text-slate-500 text-sm font-medium">Create and manage micro-earning tasks</p>
           </div>
+          <button className="flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg">
+            <Plus size={18} /> New Task
+          </button>
         </div>
-      )}
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-slate-50/50 text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                <th className="px-10 py-5">Task Details</th>
+                <th className="px-10 py-5">Reward</th>
+                <th className="px-10 py-5">Performance</th>
+                <th className="px-10 py-5">Status</th>
+                <th className="px-10 py-5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {tasks.map((task) => (
+                <tr key={task.id} className="hover:bg-slate-50/30 transition-colors">
+                  <td className="px-10 py-6">
+                    <div className="flex items-center gap-4">
+                       <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400">
+                          <FileText size={22} />
+                       </div>
+                       <div>
+                          <p className="font-bold text-slate-900">{task.title}</p>
+                          <p className="text-[10px] text-orange-500 font-black uppercase tracking-widest mt-0.5">{task.category}</p>
+                       </div>
+                    </div>
+                  </td>
+                  <td className="px-10 py-6">
+                    <div className="flex items-center gap-2 text-sm font-black text-slate-900">
+                        <Coins size={16} className="text-orange-500" /> {task.reward} Coins
+                    </div>
+                  </td>
+                  <td className="px-10 py-6">
+                    <div className="flex items-center gap-1.5 font-bold text-slate-900">
+                        {task.completions.toLocaleString()} <span className="text-slate-400 text-[10px] font-black uppercase">Users</span>
+                    </div>
+                  </td>
+                  <td className="px-10 py-6">
+                    <span className={cn(
+                      "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                      task.status === 'active' ? "bg-emerald-50 text-emerald-600" : "bg-orange-50 text-orange-600"
+                    )}>{task.status}</span>
+                  </td>
+                  <td className="px-10 py-6 text-right">
+                    <button className="p-3 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all font-bold text-xs uppercase tracking-widest">
+                       View Details
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ApprovalQueue() {
+  const [submissions] = useState([
+    { id: 1, user: 'ahmad_khan', task: 'Follow on X', time: '2 mins ago', proof: 'screenshot1.png' },
+    { id: 2, user: 'crypto_king', task: 'App Download', time: '14 mins ago', proof: 'screenshot2.png' },
+    { id: 3, user: 'jane_doe', task: 'Telegram Join', time: '1 hour ago', proof: 'screenshot3.png' },
+  ]);
+
+  return (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm">
+           <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Pending Review</h4>
+           <p className="text-4xl font-black text-slate-900">12</p>
+        </div>
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm">
+           <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Approved Today</h4>
+           <p className="text-4xl font-black text-emerald-500">245</p>
+        </div>
+        <div className="bg-white border border-slate-200 p-8 rounded-[40px] shadow-sm">
+           <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Rejected (24h)</h4>
+           <p className="text-4xl font-black text-red-500">14</p>
+        </div>
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-[40px] shadow-sm overflow-hidden">
+        <div className="p-10 border-b border-slate-100">
+          <h3 className="text-xl font-black tracking-tight text-slate-900">Verification Terminal</h3>
+          <p className="text-slate-500 text-sm font-medium">Approve or reject task proofs</p>
+        </div>
+
+        <div className="divide-y divide-slate-100">
+          {submissions.map((sub) => (
+            <div key={sub.id} className="p-8 hover:bg-slate-50/50 transition-all flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex items-center gap-6">
+                 <div className="w-14 h-14 rounded-full bg-orange-100 border-2 border-white ring-4 ring-orange-50 flex items-center justify-center text-orange-600">
+                    <User size={24} />
+                 </div>
+                 <div>
+                    <div className="flex items-center gap-2">
+                       <span className="font-black text-slate-900">@{sub.user}</span>
+                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">• {sub.time}</span>
+                    </div>
+                    <p className="text-sm font-medium text-slate-500 mt-1">Proof for: <span className="font-bold text-slate-900">{sub.task}</span></p>
+                 </div>
+              </div>
+
+              <div className="flex items-center gap-6 w-full md:w-auto">
+                 <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-slate-50 border border-slate-100 text-slate-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all">
+                    <Eye size={16} /> View Proof
+                 </button>
+                 <div className="flex gap-3">
+                    <button className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-lg shadow-emerald-500/10">
+                       <CheckCircle2 size={22} />
+                    </button>
+                    <button className="p-3 bg-red-50 text-red-600 rounded-2xl hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-red-500/10">
+                       <XCircle size={22} />
+                    </button>
+                 </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
